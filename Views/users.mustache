@@ -1,0 +1,223 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Users</title>
+  <style>
+    body {
+      -moz-transition: 0.1s ease-in all;
+      -webkit-transition: 0.1s ease-in all;
+      -o-transition: 0.1s ease-in all;
+      transition: 0.1s ease-in all;
+    }
+    body {
+      background: #74c4bf; /* Old browsers */
+      background: -moz-linear-gradient(top,  #d4a961 0%, #d6cd8f 26%, #95cacb 64%, #5bc5cb 83%, #5ec6cc 83%, #74c4bf 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top,  #d4a961 0%,#d6cd8f 26%,#95cacb 64%,#5bc5cb 83%,#5ec6cc 83%,#74c4bf 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom,  #d4a961 0%,#d6cd8f 26%,#95cacb 64%,#5bc5cb 83%,#5ec6cc 83%,#74c4bf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4a961', endColorstr='#74c4bf',GradientType=0 ); /* IE6-9 */
+
+    }
+    body {
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+    .titles header {
+      text-align: center;
+      width: 100%;
+      margin: 1em 0 3em 0;
+    }
+    h2 {
+      margin: 0;
+      font-style: italic;
+      font-weight: normal;
+      font-size: 1em;
+      opacity: 0.6;
+    }
+    h1 {
+      font-size: 2.4em;
+      font-weight: 500;
+      margin: 0;
+      opacity: 0.9;
+    }
+    h3 {
+      font-size: 1.5em;
+      font-weight: 400;
+      margin: 0.8em 0;
+      opacity: 0.6;
+    }
+    .container {
+      padding: 1.3em;
+    }
+    ol {
+      padding: 0;
+      list-style-position: inside;
+      columns: 2;
+      -webkit-columns: 2;
+      -moz-columns: 2;
+    }
+    ol li {
+      padding: 0.5em 0;
+    }
+    .name {
+      font-size: 1.2em;
+    }
+    .email {
+      font-size: 0.8em;
+      font-style: italic;
+      color: #969595;
+    }
+    footer .error {
+      color: #FB7777;
+    }
+    input[type="button"] {
+      margin: 1em 0;
+      border: 1px solid;
+      border-radius: 3px;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      -moz-transition: 0.1s ease-in opacity;
+      -webkit-transition: 0.1s ease-in opacity;
+      -o-transition: 0.1s ease-in opacity;
+      transition: 0.1s ease-in opacity;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      background: transparent;
+      color: #fff;
+      height: 2em;
+      line-height: 2em;
+      font-size: 1.2em;
+      padding: 0 0.4em;
+      width: 100%;
+    }
+    #winner.hidden {
+      display: none;
+    }
+    input[type="button"]:hover {
+      opacity: 0.8;
+      outline: none;
+    }
+    input[type="button"]:active {
+      opacity: 0.8;
+      outline: none;
+    }
+    @media all and (max-width: 650px) {
+      ol {
+        columns: 1;
+        -webkit-columns: 1;
+        -moz-columns: 1;
+      }
+    }
+    #winner {
+      position: absolute;
+      height: 350px;
+      width: 350px;
+      top: 50%;
+      margin-top: -175px;
+      left: 50%;
+      margin-left: -175px;
+      padding: 1.5em;
+      border: 7px solid #5bc5cb;
+      border-radius: 3px;
+      background: #fff;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -ms-flex-direction: column;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+    #winner h1,
+    #winner h2,
+    #winner h3 {
+      color: #969595;
+    }
+    #winner > h3 {
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+    }
+    #winner > section {
+      -webkit-flex: 2;
+      -ms-flex: 2;
+      flex: 2;
+      text-align: center;
+    }
+  </style>
+  {{#draw}}
+  <script>
+    function getAjax(url, success) {
+      var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+      xhr.open('GET', url);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState>3 && xhr.status==200)
+          success(xhr.responseText);
+      };
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhr.send();
+      return xhr;
+    }
+
+    function draw() {
+      getAjax('/drawticket', function(data) {
+        var json = JSON.parse(data);
+        console.log(json);
+        var winner = document.getElementById("winner");
+        winner.className = "";
+        winner.innerHTML = "<h3>... and the winner is:</h3><section class=\"winner-identity\"><h1>" + json.username + "</h1><h2>" + json.email + "</h2></section>";
+      });
+    }
+  </script>
+  {{/draw}}
+</head>
+<body>
+  <section class="container">
+    {{^draw}}
+    <section class="titles">
+      <header>
+        <h2>Thanks for participating!</h2>
+        <h1>Good Luck!</h1>
+      </header>
+    </section>
+    {{/draw}}
+    <section>
+      <h3>All participants:</h3>
+      <ol>
+        {{#users}}
+        <li>
+          <div class="name">
+            {{username}}
+          </div>
+          <div class="email">
+            {{email}}
+          </div>
+        </li>
+        {{/users}}
+      </ol>
+    </section>
+    {{#error}}
+    <footer>
+      <section class="error">
+        Error: {{error}}
+      </section>
+    </footer>
+    {{/error}}
+    {{#draw}}
+    <input type="button" value="Draw" onClick="draw()"><br/>
+    <div id="winner" class="hidden"></div>
+    {{/draw}}
+  </section>
+</body>
+</html>

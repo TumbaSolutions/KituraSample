@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Add user</title>
+	<style>
+    body {
+      -moz-transition: 0.1s ease-in all;
+      -webkit-transition: 0.1s ease-in all;
+      -o-transition: 0.1s ease-in all;
+      transition: 0.1s ease-in all;
+    }
+		body.portrait {
+			background: #74c4bf; /* Old browsers */
+			background: -moz-linear-gradient(top,  #d4a961 0%, #d6cd8f 26%, #95cacb 64%, #5bc5cb 83%, #5ec6cc 83%, #74c4bf 100%); /* FF3.6-15 */
+			background: -webkit-linear-gradient(top,  #d4a961 0%,#d6cd8f 26%,#95cacb 64%,#5bc5cb 83%,#5ec6cc 83%,#74c4bf 100%); /* Chrome10-25,Safari5.1-6 */
+			background: linear-gradient(to bottom,  #d4a961 0%,#d6cd8f 26%,#95cacb 64%,#5bc5cb 83%,#5ec6cc 83%,#74c4bf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4a961', endColorstr='#74c4bf',GradientType=0 ); /* IE6-9 */
+
+		}
+    body.landscape {
+      background: #74c4bf; /* Old browsers */
+      background: -moz-linear-gradient(left,  #d4a961 0%, #d6cd8f 26%, #95cacb 64%, #5bc5cb 83%, #5ec6cc 83%, #74c4bf 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(left,  #d4a961 0%,#d6cd8f 26%,#95cacb 64%,#5bc5cb 83%,#5ec6cc 83%,#74c4bf 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to right,  #d4a961 0%,#d6cd8f 26%,#95cacb 64%,#5bc5cb 83%,#5ec6cc 83%,#74c4bf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4a961', endColorstr='#74c4bf',GradientType=1 ); /* IE6-9 */
+
+    }
+    body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+    .titles header {
+      text-align: center;
+      width: 100%;
+    }
+    h2 {
+      margin: 0;
+      font-style: italic;
+      font-weight: normal;
+      font-size: 1em;
+    }
+    h1 {
+      font-size: 2.4em;
+      font-weight: 500;
+      margin: 0;
+    }
+    .container {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      height: 100vh;
+    }
+    .container > section {
+      flex: 1;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      align-items: center;
+      align-content: center;
+    }
+    .container > section:nth-of-type(1) {
+      padding: 20px 10px 20px 20px;
+    }
+    .container > section:nth-of-type(2) {
+      padding: 20px 20px 20px 10px;
+    }
+    .portrait .container {
+      flex-direction: column;
+    }
+    .portrait .container > section:nth-of-type(1) {
+      flex: 1;
+      padding: 20px;
+    }
+    .portrait .container > section:nth-of-type(2) {
+      flex: 3;
+      padding: 20px;
+    }
+    label {
+      font-size: 1.4em;
+      margin-top: -1.2em;
+      display: block;
+      padding-left: 0.4em;
+      opacity: 0.5;
+    }
+    input {
+      background: transparent;
+      border: 0;
+      color: #fff;
+      height: 2em;
+      line-height: 2em;
+      font-size: 1.2em;
+      padding: 0 0.4em;
+      width: 100%;
+    }
+    input:focus {
+      outline: none;
+    }
+    form {
+      width: 100%;
+    }
+    .name, .email {
+      border: 1px solid rgba(256, 256, 256, 0.5);
+      border-radius: 3px;
+      margin-bottom: 3em;
+    }
+    footer {
+      background: rgba(255, 255, 255, 0.5);
+      font-size: 0.8em;
+      font-style: italic;
+      color: #a09f9f;
+      padding: 0.1em 0.4em;
+    }
+    footer .error {
+      color: #FB7777;
+    }
+    input[type="submit"] {
+      font-size: 1.4em;
+      border: 1px solid;
+      padding: 0.1em;
+      border-radius: 3px;
+      display: block;
+      text-align: center;
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+      -moz-transition: 0.1s ease-in opacity;
+      -webkit-transition: 0.1s ease-in opacity;
+      -o-transition: 0.1s ease-in opacity;
+      transition: 0.1s ease-in opacity;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    input[type="submit"]:hover {
+      opacity: 0.8;
+    }
+    input[type="submit"]:active {
+      opacity: 0.8;
+    }
+	</style>
+  <script src="/files/minified.js"></script>
+</head>
+<body>
+<section class="container">
+  <section class="titles">
+    <header>
+      <h2>Enter now for a chance to win a ticket for</h2>
+      <h1>Java2Days</h1>
+    </header>
+  </section>
+  <section>
+    <form class="registration-form">
+      <section class="name">
+        <header>
+          <label for="name">Name:</label>
+        </header>
+        <section>
+          <input type="text" name="username" id="name" class="name-input">
+        </section>
+        <footer>
+          <section class="feedback">So we can easily identify you :)</section>
+        </footer>
+      </section>
+      <section class="email">
+        <header>
+          <label for="email">Email:</label>
+        </header>
+        <section>
+          <input type="text" name="email" id="email" class="email-input">
+        </section>
+        <footer>
+          <section class="feedback">So we can contact you to collect your ticket.</section>
+        </footer>
+      </section>
+      <section>
+        <input name="submit" type="submit" value="Register" />
+      </section>
+    </form>
+  </section>
+</section>
+<script>
+  //<!-- method="post" action="/add" -->
+  var MINI = require('minified');
+  var $ = MINI.$, $$ = MINI.$$, EE = MINI.EE, _ = MINI._;
+  var body = document.getElementsByTagName('body')[0];
+  var calculateSize = function () {
+    $(body).set('$height', window.innerHeight + 'px');
+    $(body).set('$width', window.innerWidth + 'px');
+    if (window.innerHeight > window.innerWidth) {
+      return body.className = 'portrait';
+    }
+    return body.className = 'landscape';
+  };
+  $(window).on("resize", calculateSize);
+  setTimeout(calculateSize, 1000);
+  $('.registration-form').on('submit', function () {
+    console.log(!$('.name-input').get('value'));
+    var errorCount = 0;
+    var nameError;
+    var emailError;
+    if (!$('.name-input').get('value')) {
+      nameError = 'Don\'t be shy, give us your name.';
+      $('.name .feedback').set('$', '+error');
+      errorCount++;
+    } else {
+      nameError = 'So we can easily identify you :)';
+      $('.name .feedback').set('$', '-error');
+    }
+    $('.name .feedback').fill(nameError);
+
+    if (!$('.email-input').get('value')) {
+      emailError = 'Don\'t be shy, give us your email.';
+      $('.email .feedback').set('$', '+error');
+      errorCount++;
+    } else {
+      if (/(.+)@(.+){2,}\.(.+){2,}/.test($('.email-input').get('value'))) {
+        emailError = 'So we can contact you to collect your ticket.';
+        $('.email .feedback').set('$', '-error');
+      } else {
+        errorCount++;
+        emailError = 'Don\'t try tricks.';
+        $('.email .feedback').set('$', '+error');
+      }
+    }
+    $('.email .feedback').fill(emailError);
+    if (!errorCount) {
+      $.request('post', '/add', {username: $('.name-input').get('value'), email: $('.email-input').get('value')})
+      .then(function () {
+        location.pathname = '/users';
+      })
+      .error(function () {
+        location.pathname = '/users';
+      });
+    }
+    return false;
+  });
+  calculateSize();
+</script>
+</body>
+</html>
